@@ -1,0 +1,12 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.git$
+^\.gitignore$
+^\.Rbuildignore$
+^README\.md$
+^protocols$
+^src$
+^scripts$
+^data$
+^results$
+^\.DS_Store$

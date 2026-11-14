@@ -1,0 +1,21 @@
+# R session and history
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+*.Rproj
+
+# R CMD build and check outputs
+*.tar.gz
+*.Rcheck/
+
+# Generated plots from demo runs
+Rplots.pdf
+results/
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/

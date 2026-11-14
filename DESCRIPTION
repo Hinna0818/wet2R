@@ -1,0 +1,24 @@
+Package: wet2R
+Type: Package
+Title: wetlab experiment protocols and Visualization Utilities
+Version: 0.1.0
+Authors@R:
+    person("Nan He", email = "hinna01@163.com", role = c("aut", "cre"))
+Description: This package provides wet-lab protocols and tools for processing
+    and visualizing data generated from wet-lab experiments.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = FALSE)
+RoxygenNote: 7.3.3
+Imports:
+    ggplot2,
+    ragg,
+    scales,
+    stats,
+    svglite,
+    systemfonts,
+    utils,
+    grid
+Suggests:
+    roxygen2,
+    pkgload
