@@ -2,58 +2,52 @@
 % Please edit documentation in R/qpcr_utils.r
 \name{prepare_qpcr}
 \alias{prepare_qpcr}
-\title{Read qPCR Ct values and calculate relative expression}
+\title{Prepare single-target qPCR data}
 \usage{
-prepare_qpcr(csv_file, control = "WT", group_order = NULL)
+prepare_qpcr(csv_file, control = "WT", group_order = NULL, qc_range_max = NULL)
 }
 \arguments{
-\item{csv_file}{Path to the input CSV file.}
+\item{csv_file}{CSV path or a data frame containing \code{group}, \code{bio_rep},
+\code{tech_rep}, \code{target_ct}, and \code{reference_ct}. Identifiers must be nonempty.
+Each row contains one measurement of each assay from the same sample.}
 
-\item{control}{Name of the control group. Must be one of the groups in the
-CSV file. Default is "WT".}
+\item{control}{Control group name. Defaults to \code{"WT"}.}
 
-\item{group_order}{Character vector giving the plotting order of the groups.
-It must contain every group exactly once. Default puts the control group
-first, followed by the other groups in order of appearance.}
+\item{group_order}{All group names, exactly once, in plotting order.}
+
+\item{qc_range_max}{Optional positive Ct range threshold. Values above the
+threshold are flagged, never removed. \code{NULL} disables this threshold.}
 }
 \value{
-A list with the following elements:
-\describe{
-  \item{raw}{Raw data with the required columns only.}
-  \item{biological_data}{Per-biological-replicate mean Ct, dCt, ddCt, and
-    relative expression.}
-  \item{summary}{Per-group mean, standard deviation, geometric mean, and
-    error range.}
-  \item{technical_qc}{Range of technical replicate Ct values within each
-    biological replicate, for quality control.}
-  \item{control}{Name of the control group.}
-  \item{group_order}{Plotting order of the groups.}
-}
+A \code{wet2r_qpcr} list with \code{raw}, \code{biological_data}, \code{summary},
+\code{technical_qc}, \code{control}, \code{group_order}, and \code{qc_range_max}.
+QC includes counts, SDs, ranges, and \code{qc_flag}/\code{qc_reason}. A single
+technical replicate has undefined SD and is flagged as insufficient QC.
 }
 \description{
-Reads a CSV file of Ct values, validates the format, and calculates relative
-expression with the 2^-ddCt method. Each biological replicate is averaged over
-its technical replicates and contributes one dCt value; technical replicates
-are not weighted by their number.
+Average technical replicates within each biological sample and calculate
+relative expression using the 2^-ddCt method.
 }
 \details{
-The CSV file must contain the following columns:
-\describe{
-  \item{group}{Group name, e.g. WT or KO.}
-  \item{bio_rep}{Biological replicate ID.}
-  \item{tech_rep}{Technical replicate ID.}
-  \item{target_ct}{Ct value of the target gene.}
-  \item{reference_ct}{Ct value of the reference (housekeeping) gene.}
-}
+Input must contain one target and one reference assay, with equal numbers
+of measured technical replicates per sample. Do not duplicate reference
+values to fill rows. Undetected reactions must be resolved before analysis.
+Extra columns are sample metadata: they must be complete and constant within
+each \code{group}/\code{bio_rep}. They are retained in \code{raw} and \code{biological_data}.
+Columns named \code{gene}, \code{target_gene}, or \code{reference_gene} must each contain
+a single value across the input. Sample IDs must distinguish independent
+samples across plates and batches.
 
-
-Each group needs at least 2 biological replicates to calculate the standard
-deviation. Ct values must be finite positive numbers. Undetected reactions
-must be checked before the data are used.
+Each group needs at least two biological replicates. The control mean dCt
+is subtracted from every sample dCt. Bars use the geometric mean of fold
+changes; error bounds back-transform mean ddCt +/- SD(dCt). These describe
+sample dispersion conditional on the observed control mean, not a confidence
+interval for a treatment effect. Validate reference stability and comparable,
+near-doubling amplification efficiencies before using this method.
 }
 \examples{
-\dontrun{
-result <- prepare_qpcr("data/example_qpcr.csv", control = "WT")
+path <- system.file("extdata", "qpcr_hsp12.csv", package = "wet2R")
+result <- prepare_qpcr(path, control = "C-")
 result$summary
-}
+result$technical_qc
 }

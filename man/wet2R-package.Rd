@@ -4,16 +4,11 @@
 \name{wet2R-package}
 \alias{wet2R}
 \alias{wet2R-package}
-\title{wet2R: qPCR analysis and visualization utilities}
+\title{qPCR analysis and visualization utilities}
 \description{
-Tools for qPCR data analysis. Relative expression is calculated with the
-2^-ddCt method, and results are plotted as bar charts with error bars and
-biological replicate points.
-}
-\details{
-The typical workflow has three steps: \code{\link{prepare_qpcr}} reads and
-calculates the data, \code{\link{plot_qpcr}} creates the plot, and
-\code{\link{save_qpcr}} exports the figures and tables.
+Use \code{\link[=prepare_qpcr]{prepare_qpcr()}} to calculate expression and technical QC,
+\code{\link[=test_qpcr]{test_qpcr()}} to compare biological replicates, and \code{\link[=plot_qpcr]{plot_qpcr()}}
+to return an editable ggplot object.
 }
 \author{
 \strong{Maintainer}: Nan He \email{hinna01@163.com}

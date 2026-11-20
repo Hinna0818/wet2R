@@ -1,24 +1,25 @@
 Package: wet2R
 Type: Package
-Title: wetlab experiment protocols and Visualization Utilities
-Version: 0.1.0
+Title: Wet-Lab Protocols and qPCR Analysis Utilities
+Version: 0.2.0
 Authors@R:
     person("Nan He", email = "hinna01@163.com", role = c("aut", "cre"))
-Description: This package provides wet-lab protocols and tools for processing
-    and visualizing data generated from wet-lab experiments.
+Description: Process single-target quantitative PCR data, compare biological
+    replicates with configurable tests and P-value adjustment, and create
+    editable plots. Companion wet-lab protocols are maintained in the repository.
 License: MIT + file LICENSE
 Encoding: UTF-8
-Roxygen: list(markdown = FALSE)
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Imports:
-    ggplot2,
-    ragg,
+    ggplot2 (>= 3.4.0),
     scales,
     stats,
-    svglite,
     systemfonts,
-    utils,
-    grid
+    utils
 Suggests:
     roxygen2,
-    pkgload
+    pkgload,
+    readr,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

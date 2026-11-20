@@ -3,12 +3,12 @@ bibentry(
   title = "wet2R: Wet-lab protocols and qPCR analysis utilities",
   author = person("Nan", "He", email = "hinna01@163.com", role = c("aut", "cre")),
   year = "2026",
-  note = "R package version 0.1.0",
+  note = "R package version 0.2.0",
   url = "https://github.com/Hinna0818/wet2R",
   textVersion = paste(
     "Nan He (2026).",
     "wet2R: Wet-lab protocols and qPCR analysis utilities.",
-    "R package version 0.1.0.",
+    "R package version 0.2.0.",
     "https://github.com/Hinna0818/wet2R"
   )
 )

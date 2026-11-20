@@ -4,6 +4,8 @@
 ^\.gitignore$
 ^\.Rbuildignore$
 ^README\.md$
+^README\.zh-CN\.md$
+^data-raw$
 ^protocols$
 ^src$
 ^scripts$
